@@ -1,0 +1,17 @@
+# Always use LF for all code files
+*.js text eol=lf
+*.json text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+
+# Ignore coverage reports or normalize them if needed
+coverage/* text eol=lf
+
+# Binary files (no transformation)
+*.png binary
+*.jpg binary
+*.svg binary
+*.woff binary
+*.woff2 binary
