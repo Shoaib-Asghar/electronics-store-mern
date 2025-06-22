@@ -11,6 +11,6 @@ const inventorySchema = new mongoose.Schema(
   { timestamps: true } // adds createdAt and updatedAt fields
 );
 
-const Inventory = mongoose.model('Inventory', inventorySchema);
+const Inventory = mongoose.model('Inventory', inventorySchema);  // Create a model named Inventory based on the inventorySchema
 
 export default Inventory;
