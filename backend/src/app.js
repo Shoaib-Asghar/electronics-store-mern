@@ -5,14 +5,16 @@ import connectDB from './config/db.js';
 import inventoryRoutes from './routes/inventory.routes.js';
 
 dotenv.config();
-// connectDB(); //temporarily commented out to avoid connection issues during testing
+connectDB(); //temporarily commented out to avoid connection issues during testing
 
 const app = express();
-
 // This is the main application file for the backend server of the electronics store application.
 
+
+
 // Middlewares
-// app.use(cors());
+app.use(cors()); // This middleware allows cross-origin requests, enabling the frontend to communicate with the backend
+
 app.use(express.json()); // This middleware parses incoming JSON requests and makes the data available in req.body
 
 app.get('/api/ping', (req, res) => {
