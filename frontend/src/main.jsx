@@ -9,14 +9,36 @@
 //   </StrictMode>,
 // )
 
+// import React from 'react';
+// import ReactDOM from 'react-dom/client';
+// import App from './App.jsx';
+// import './index.css'; // We'll use this for Tailwind
+
+// ReactDOM.createRoot(document.getElementById('root')).render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>
+// );
+
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'; 
 import App from './App.jsx';
-import './index.css'; // We'll use this for Tailwind
+import InventoryPage from './pages/InventoryPage.jsx';
+import AddInventoryPage from './pages/AddInventoryPage.jsx';
+import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter> 
+      <Routes>    {/* */}
+        <Route path="/" element={<App />} />  
+        <Route path="/inventory" element={<InventoryPage />} />
+        <Route path="/inventory/add" element={<AddInventoryPage />} />
+
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
