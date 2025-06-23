@@ -27,6 +27,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App.jsx';
 import InventoryPage from './pages/InventoryPage.jsx';
 import AddInventoryPage from './pages/AddInventoryPage.jsx';
+import EditInventoryPage from './pages/EditInventoryPage.jsx';
+
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -36,6 +38,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/" element={<App />} />  
         <Route path="/inventory" element={<InventoryPage />} />
         <Route path="/inventory/add" element={<AddInventoryPage />} />
+        <Route path="/inventory/edit/:id" element={<EditInventoryPage />} />
+        
 
       </Routes>
     </BrowserRouter>

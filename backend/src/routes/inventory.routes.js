@@ -34,6 +34,24 @@ router.post('/', async (req, res) => {
 
 
 
+// GET /api/inventory/:id — Get a specific item by ID
+router.get('/:id', async (req, res) => {
+  try {
+    const item = await Inventory.findById(req.params.id);
+    if (!item) {
+      return res.status(404).json({ message: 'Item not found' });
+    }
+    res.json(item);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+
+
+
 
 // PUT /api/inventory/:id — Update an existing item by ID
 router.put('/:id', async (req, res) => {
@@ -73,6 +91,8 @@ router.put('/:id', async (req, res) => {
 
 // DELETE /api/inventory/:id — Remove item from inventory
 router.delete('/:id', async (req, res) => {
+    console.log("DELETE request received for item:", req.params.id); // Log the ID being deleted for debugging
+
   try {
     const item = await Inventory.findById(req.params.id); // Get the item ID from the URL
 
