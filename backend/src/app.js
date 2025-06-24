@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
-import inventoryRoutes from './routes/inventory.routes.js';
+import productRoutes from './routes/product.routes.js';
 
 dotenv.config();
 connectDB(); //temporarily commented out to avoid connection issues during testing
@@ -21,6 +21,6 @@ app.get('/api/ping', (req, res) => {
   res.json({ message: 'pong' }); 
 });
 
-app.use('/api/inventory', inventoryRoutes); //Inventory route handles anything under /api/inventory
+app.use('/api/products', productRoutes); //Inventory route handles anything under /api/inventory
 
 export default app;

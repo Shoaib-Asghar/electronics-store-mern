@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { getAllInventory } from '../services/inventoryService';
+import { getAllProducts } from '../services/inventoryService';
 import axios from 'axios'; // Axios is a promise-based HTTP client for the browser and Node.js. It is used to make HTTP requests to the backend API to fetch, create, update, or delete data.
 
 import { useNavigate } from 'react-router-dom'; //useNavigate is a hook that allows you to programmatically navigate to different routes in your application. for example, you can use it to navigate to the inventory page after adding an item or to redirect users based on certain conditions. It replaces the older useHistory hook from React Router v5.
+
+import { useRole } from '../context/RoleContext';
 
 
 const API = import.meta.env.VITE_API_BASE_URL; // backend API base URL, this is used to make requests to the backend API to fetch, create, update, or delete data.
 
 const InventoryPage = () => {   // InventoryPage component to display all items.
+
+    const { role } = useRole();
+
+    if (role !== 'admin') return <Navigate to="/" />;
+
     const [items, setItems] = useState([]); // State variable to hold inventory items for rendering. Initially set to an empty array.
     const [loading, setLoading] = useState(true); // State to manage loading state while fetching data. Initially set to true to show loading state.
 
@@ -21,7 +28,7 @@ const InventoryPage = () => {   // InventoryPage component to display all items.
     useEffect(() => { 
         const fetchData = async () => {
         try {
-            const inventory = await getAllInventory(); // Fetch all inventory items from the backend
+            const inventory = await getAllProducts(); // Fetch all inventory items from the backend
             setItems(inventory);  //
         } catch (error) {
             console.error('Failed to load inventory.');
@@ -61,7 +68,7 @@ const InventoryPage = () => {   // InventoryPage component to display all items.
         if (!confirm("Are you sure you want to delete this item?")) return;
 
         try {
-            const res = await axios.delete(`${API}/inventory/${id}`);
+            const res = await axios.delete(`${API}/products/${id}`);
             
             // Optional: check for 200 OK and success message
             if (res.status === 200) {
@@ -99,7 +106,7 @@ const InventoryPage = () => {   // InventoryPage component to display all items.
             <div className="mt-4 space-x-2">
 
               <button
-                onClick={() => navigate(`/inventory/edit/${item._id}`)}
+                onClick={() => navigate(`/products/edit/${item._id}`)}
                 className="bg-yellow-500 px-3 py-1 text-white rounded"
               >
                 Edit
