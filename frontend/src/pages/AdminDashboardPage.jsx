@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 const AdminDashboard = () => {
   const [products, setProducts] = useState([]);
 
@@ -9,7 +11,7 @@ const AdminDashboard = () => {
     // Fetch products for dashboard stats
     const fetchProducts = async () => {
       try {
-        const res = await axios.get('/api/products');
+        const res = await axios.get(`${API_BASE_URL}/products`);
         setProducts(res.data);
       } catch (err) {
         console.error("Dashboard fetch error:", err);

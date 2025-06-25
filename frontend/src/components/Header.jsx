@@ -1,31 +1,46 @@
-import { useRole } from '../context/RoleContext';
+// src/components/Header.jsx
+
+import React from 'react';
+import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
-  const { role, setRole } = useRole();
+  const { user, logout } = useAuth();
 
   return (
-    <header className="bg-blue-700 text-white px-6 py-4 flex justify-between items-center">
-      <h1 className="text-xl font-bold">Mughal Electronics</h1>
+    <header className="bg-gray-800 text-white p-4 flex justify-between">
+      <Link to="/" className="font-bold text-lg">Electronics Store</Link>
+      <nav className="flex gap-4 items-center">
+        {!user && (
+          <>
+            <Link to="/login" className="hover:underline">Login</Link>
+            <Link to="/register" className="hover:underline">Register</Link>
+          </>
+        )}
 
-      <nav className="space-x-4">
-        <Link to="/">Home</Link>
-        {role === 'admin' && <Link to="/inventory">Inventory</Link>}
-        {role === 'customer' && <Link to="/shop">Shop</Link>}
-        <Link to="/cart">Cart</Link>
+        {user?.role === 'admin' && (
+          <>
+            <Link to="/dashboard" className="hover:underline">Dashboard</Link>
+            <Link to="/products" className="hover:underline">Products</Link>
+          </>
+        )}
+
+        {user?.role === 'customer' && (
+          <>
+            <Link to="/shop" className="hover:underline">Shop</Link>
+            <Link to="/cart" className="hover:underline">Cart</Link>
+          </>
+        )}
+
+        {user && (
+          <button
+            onClick={logout}
+            className="bg-red-500 px-2 py-1 rounded hover:bg-red-600"
+          >
+            Logout
+          </button>
+        )}
       </nav>
-
-      <div>
-        <label className="mr-2">Role:</label>
-        <select
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          className="text-black p-1 rounded"
-        >
-          <option value="customer">Customer</option>
-          <option value="admin">Admin</option>
-        </select>
-      </div>
     </header>
   );
 };
