@@ -9,5 +9,4 @@ describe('GET /api/ping', () => {
   });
 });
 
-
 // This test checks if the /api/ping endpoint returns a 200 status code and the expected response body.

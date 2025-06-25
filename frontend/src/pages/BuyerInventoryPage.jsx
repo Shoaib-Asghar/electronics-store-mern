@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const API_ENDPOINT = `${API_BASE_URL}/products`;
-
+const IMAGE_BASE_URL = import.meta.env.VITE_IMAGES_BASE_URL;
 // ---------------------- Product Card ----------------------
 const ProductCard = ({
   product,
@@ -22,7 +22,8 @@ const ProductCard = ({
   return (
     <div className="bg-white shadow rounded-xl overflow-hidden flex flex-col">
       <img
-        src={`${API_BASE_URL}${product.imageUrl}`}
+        src={`${IMAGE_BASE_URL}${product.imageUrl}`} // Ensure the image URL is complete, for example, if the API returns a relative path like "/uploads/image.jpg" this will prepend the base URL like "http://localhost:5000/uploads/image.jpg", b
+        // src={`${product.imageUrl}`}
         alt={product.name}
         className="h-48 w-full object-cover"
       />

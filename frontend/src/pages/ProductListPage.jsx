@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import ProductList from '../components/ProductList';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+// const IMAGE_BASE_URL = import.meta.env.VITE_IMAGES_BASE_URL;
+
 const PAGE_SIZE = 10;
 
 const ProductListPage = () => {
@@ -12,6 +15,8 @@ const ProductListPage = () => {
   const [status, setStatus] = useState({ type: '', message: '' });
   const [currentPage, setCurrentPage] = useState(1);
   const [deletingId, setDeletingId] = useState(null);
+  const [layout, setLayout] = useState('table'); // 'table' or 'grid'
+  const navigate = useNavigate();
 
   // Fetch products
   const fetchProducts = async () => {
@@ -75,12 +80,20 @@ const ProductListPage = () => {
     <div className="p-6 max-w-6xl mx-auto">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Products</h2>
-        <Link
-          to="/products/add"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-        >
-          Add Product
-        </Link>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setLayout(layout === 'table' ? 'grid' : 'table')}
+            className="px-3 py-1 border rounded"
+          >
+            {layout === 'table' ? 'Grid View' : 'Table View'}
+          </button>
+          <Link
+            to="/products/add"
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          >
+            Add Product
+          </Link>
+        </div>
       </div>
 
       {status.message && (
@@ -103,50 +116,13 @@ const ProductListPage = () => {
         className="w-full sm:w-1/2 border p-2 mb-4 rounded"
       />
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
-          <thead className="bg-gray-200">
-            <tr>
-              <th className="py-3 px-4 text-left">Name</th>
-              <th className="py-3 px-4">Brand</th>
-              <th className="py-3 px-4">Stock</th>
-              <th className="py-3 px-4">Price</th>
-              <th className="py-3 px-4">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {paginatedProducts.length === 0 ? (
-              <tr>
-                <td colSpan="5" className="text-center py-6 text-gray-500">
-                  No products found.
-                </td>
-              </tr>
-            ) : (
-              paginatedProducts.map((p) => (
-                <tr key={p._id} className="border-t">
-                  <td className="py-2 px-4">{p.name}</td>
-                  <td className="py-2 px-4">{p.brand}</td>
-                  <td className="py-2 px-4">{p.stock}</td>
-                  <td className="py-2 px-4">${p.price}</td>
-                  <td className="py-2 px-4 space-x-2">
-                    <Link to={`/products/edit/${p._id}`} className="text-blue-600">
-                      Edit
-                    </Link>
-                    <button
-                      onClick={() => handleDelete(p._id)}
-                      className={`text-red-500 ${
-                        deletingId === p._id ? 'opacity-50 pointer-events-none' : ''
-                      }`}
-                    >
-                      {deletingId === p._id ? 'Deleting...' : 'Delete'}
-                    </button>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+      <ProductList
+        products={paginatedProducts}
+        layout={layout}
+        onEdit={(id) => navigate(`/products/edit/${id}`)}
+        onDelete={handleDelete}
+        deletingId={deletingId}
+      />
 
       {totalPages > 1 && (
         <div className="flex justify-center mt-6 space-x-4">

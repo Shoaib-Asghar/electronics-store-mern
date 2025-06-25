@@ -29,7 +29,7 @@ app.use(cors()); // This middleware allows cross-origin requests, enabling the f
 app.use(express.json()); // This middleware parses incoming JSON requests and makes the data available in req.body
 
 // Serve static files from uploads directory
-app.use('/uploads', express.static(path.resolve('uploads')));
+app.use('/uploads', express.static(path.resolve('uploads'))); // This middleware serves static files from the 'uploads' directory, allowing access to uploaded images and other files
 
 app.use('/api/auth', authRoutes);
 

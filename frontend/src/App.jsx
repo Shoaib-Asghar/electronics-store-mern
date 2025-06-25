@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import InventoryPage from './pages/InventoryPage.jsx';
+// import InventoryPage from './pages/InventoryPage.jsx';
 // import AddInventoryPage from './pages/AddInventoryPage.jsx';
 // import EditInventoryPage from './pages/EditInventoryPage.jsx';
 import BuyerInventoryPage from './pages/BuyerInventoryPage.jsx';
@@ -71,10 +71,10 @@ const App = () => {
                 <AdminRoute> <EditProductPage /> </AdminRoute>
                 }
               />
-              <Route path="/inventory" element={
+              {/* <Route path="/inventory" element={
                 <AdminRoute> <InventoryPage /> </AdminRoute>
                 }
-              />
+              /> */}
               {/* <Route path="/inventory/add" element={
                   <AdminRoute> <AddInventoryPage /> </AdminRoute>
                 }
