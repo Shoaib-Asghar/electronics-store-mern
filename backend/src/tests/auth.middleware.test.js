@@ -5,6 +5,14 @@ import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'secretkey';
 
+beforeAll(() => {
+  jest.spyOn(console, 'error').mockImplementation(() => {});
+});
+
+afterAll(() => {
+  console.error.mockRestore();
+});
+
 describe('Auth Middleware', () => {
   it('should reject if no token', async () => {
     const req = { headers: {} };
@@ -12,6 +20,7 @@ describe('Auth Middleware', () => {
     const next = jest.fn();
     await protect(req, res, next);
     expect(res.status).toHaveBeenCalledWith(401);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Not authorized' });
   });
 
   it('should reject if not admin', () => {
@@ -20,6 +29,7 @@ describe('Auth Middleware', () => {
     const next = jest.fn();
     isAdmin(req, res, next);
     expect(res.status).toHaveBeenCalledWith(403);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Admin access only' });
   });
 
   it('should call next if admin', () => {
@@ -47,5 +57,14 @@ describe('Auth Middleware', () => {
     expect(next).toHaveBeenCalled();
 
     findByIdMock.mockRestore();
+  });
+
+  it('should reject with invalid token', async () => {
+    const req = { headers: { authorization: 'Bearer invalidtoken' } };
+    const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+    const next = jest.fn();
+    await protect(req, res, next);
+    expect(res.status).toHaveBeenCalledWith(401);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Invalid token' });
   });
 });

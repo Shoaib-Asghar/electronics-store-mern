@@ -15,7 +15,7 @@ await Product.insertMany([
     stock: 25,
     category: 'Phones',
     brand: 'Samsung',
-    imageUrl: '',
+    imageUrl: '/mouse.png',
   },
   {
     name: 'Dell XPS 13',
@@ -24,7 +24,7 @@ await Product.insertMany([
     stock: 10,
     category: 'Laptops',
     brand: 'Dell',
-    imageUrl: '',
+    imageUrl: '/mouse.png',
   },
   {
     name: 'Prod 3',
@@ -33,7 +33,7 @@ await Product.insertMany([
     stock: 10,
     category: 'Laptops',
     brand: 'Dell',
-    imageUrl: '',
+    imageUrl: '/mouse.png',
   },
   {
     name: 'Prod 4',
@@ -42,7 +42,7 @@ await Product.insertMany([
     stock: 10,
     category: 'Laptops',
     brand: 'Dell',
-    imageUrl: '',
+    imageUrl: '/mouse.png',
   },
   {
     name: 'Prod 5',
@@ -51,7 +51,7 @@ await Product.insertMany([
     stock: 10,
     category: 'Laptops',
     brand: 'Dell',
-    imageUrl: '',
+    imageUrl: '/mouse.png',
   },
 ]);
 

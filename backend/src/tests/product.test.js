@@ -17,13 +17,13 @@ beforeAll(async () => {
   await User.deleteMany({});
 
   // Create admin and customer users
-  const admin = await User.create({
+  await User.create({
     name: 'Admin',
     email: 'admin@test.com',
     password: 'adminpass',
     role: 'admin'
   });
-  const customer = await User.create({
+  await User.create({
     name: 'Customer',
     email: 'customer@test.com',
     password: 'customerpass',

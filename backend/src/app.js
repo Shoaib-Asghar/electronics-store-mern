@@ -7,6 +7,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import authRoutes from './routes/auth.routes.js';
 import orderRoutes from './routes/order.routes.js';
+import serviceRoutes from './routes/services.routes.js';
+import geminiRoutes from './routes/gemini.route.js';
 
 
 
@@ -33,6 +35,7 @@ app.use('/uploads', express.static(path.resolve('uploads'))); // This middleware
 
 app.use('/api/auth', authRoutes);
 
+app.use('/api/services', serviceRoutes);
 
 app.get('/api/ping', (req, res) => {
   res.json({ message: 'pong' }); 
@@ -41,6 +44,9 @@ app.get('/api/ping', (req, res) => {
 app.use('/api/products', productRoutes); //Inventory route handles anything under /api/inventory
 
 app.use('/api/orders', orderRoutes);
+
+app.use('/api/gemini', geminiRoutes);
+
 
 
 export default app;

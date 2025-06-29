@@ -3,9 +3,22 @@ node_modules/
 .DS_Store
 
 # Backend-specific
-/backend/node_modules/
-/backend/coverage/
-/backend/.env
+backend/node_modules/
+backend/coverage/
+backend/.env
+
+# Frontend-specific
+frontend/node_modules/
+frontend/.env
 
 #images
-# /uploads/
+uploads/
+backend/uploads
+
+#cypress
+frontend/cypress/videos/
+frontend/cypress/screenshots/
+frontend/cypress/downloads
+frontend/cypress/downloads/
+frontend/cypress/fixtures/
+frontend/cypress/support

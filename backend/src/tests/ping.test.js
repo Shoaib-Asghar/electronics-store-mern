@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import request from 'supertest';
 import app from '../app.js';
 
@@ -7,6 +8,8 @@ describe('GET /api/ping', () => {
     expect(res.statusCode).toBe(200);
     expect(res.body.message).toBe('pong');
   });
-});
 
-// This test checks if the /api/ping endpoint returns a 200 status code and the expected response body.
+  afterAll(async () => {
+    await mongoose.connection.close();
+  });
+});

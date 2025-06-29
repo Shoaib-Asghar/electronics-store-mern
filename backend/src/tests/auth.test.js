@@ -23,6 +23,7 @@ describe('🔑 Auth Routes', () => {
     expect(res.statusCode).toBe(200);
     expect(res.body.token).toBeDefined();
     expect(res.body.user.name).toBe('TestUser');
+    expect(res.body.user.role).toBe('customer');
   });
 
   it('should not register with existing email', async () => {
@@ -33,6 +34,7 @@ describe('🔑 Auth Routes', () => {
       .post('/api/auth/register')
       .send({ name: 'TestUser', email: 'testuser@example.com', password: 'pw123', role: 'customer' });
     expect(res.statusCode).toBe(400);
+    expect(res.body.message).toMatch(/Email already exists/);
   });
 
   it('should login with correct credentials', async () => {
@@ -49,5 +51,14 @@ describe('🔑 Auth Routes', () => {
       .post('/api/auth/login')
       .send({ email: 'testuser@example.com', password: 'wrongpw' });
     expect(res.statusCode).toBe(401);
+    expect(res.body.message).toMatch(/Invalid credentials/);
+  });
+
+  it('should not login with non-existent email', async () => {
+    const res = await request(app)
+      .post('/api/auth/login')
+      .send({ email: 'doesnotexist@example.com', password: 'pw123' });
+    expect(res.statusCode).toBe(401);
+    expect(res.body.message).toMatch(/Invalid credentials/);
   });
 });

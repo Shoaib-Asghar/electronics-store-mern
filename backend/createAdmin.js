@@ -14,9 +14,9 @@ if (!adminExists) {
     password: 'admin123',
     role: 'admin',
   });
-  console.log('✅ Admin user created.');
+  console.log('Admin user created.');
 } else {
-  console.log('⚠️ Admin already exists.');
+  console.log('Admin already exists.');
 }
 
 process.exit();
