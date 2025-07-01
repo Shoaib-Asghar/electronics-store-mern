@@ -6,7 +6,6 @@ import Header from './components/Header';
 import HomePage from './pages/HomePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
-
 import BuyerInventoryPage from './pages/BuyerShopPage.jsx';
 import CartPage from './pages/CartPage.jsx';
 import CheckoutPage from './pages/CheckoutPage.jsx';
@@ -27,25 +26,26 @@ import Chatbot from './components/Chatbot';
 import { CartProvider } from './context/CartContext.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 
-import PrivateRoute from './components/PrivateRoute.jsx';
-import AdminRoute from './components/AdminRoute.jsx';
+import PrivateRoute from './components/PrivateRoute.jsx'; // This component checks if the user is authenticated before rendering the children components
+import AdminRoute from './components/AdminRoute.jsx'; // This component checks if the user is an admin before rendering the children components
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <CartProvider>
-          <Header />
-          <Chatbot />
-          <Routes>
+    <BrowserRouter> {/*BrowserRouter is used to enable routing in the application.*/}
+      <AuthProvider> {/* AuthProvider provides authentication context to the application. */}
+        <CartProvider> {/* CartProvider provides cart context to the application. It is wrrapped in AuthProvider to ensure cart access is available after authentication. */}
+          <Header /> {/*This will render on every page as it's outside the Routes.*/}
+          <Chatbot /> {/* Chatbot component for customer support, rendered on every page. */}
+          <Routes> {/* Routes define the different paths in the application and their corresponding components. */}
+
             {/* Public Routes */}
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/services" element={<ServicesPage />} />
 
-            {/* Customer Routes (Require login) */}
             <Route path="/shop" element={<BuyerInventoryPage />} />
+            {/* Customer Routes (Require login) */}
             <Route path="/cart" element={<PrivateRoute><CartPage /></PrivateRoute>} />
             <Route path="/checkout" element={<PrivateRoute><CheckoutPage /></PrivateRoute>} />
             <Route path="/checkout/success" element={<PrivateRoute><CheckoutSuccessPage /></PrivateRoute>} />

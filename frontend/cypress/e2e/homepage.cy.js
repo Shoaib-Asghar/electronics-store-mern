@@ -1,12 +1,6 @@
-// describe('template spec', () => {
-//   it('passes', () => {
-//     cy.visit('https://example.cypress.io')
-//   })
-// })
-
 describe('Home Page UI Tests', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:5173'); // Adjust if your dev server runs on a different port
+    cy.visit('http://localhost:5173'); 
   });
 
   it('shows main title and description', () => {

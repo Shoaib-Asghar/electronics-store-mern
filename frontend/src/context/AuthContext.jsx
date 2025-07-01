@@ -1,7 +1,7 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react'; // React hooks. createContext is used to create a context. Context in react is a way to pass data through the component tree without having to pass props down manually at every level.
 import axios from 'axios';
 
-const AuthContext = createContext();
+const AuthContext = createContext(); //AuthContext is
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() =>
